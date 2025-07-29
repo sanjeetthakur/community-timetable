@@ -53,11 +53,15 @@ community-timetable/
 * Event notifications and reminders
 
 ## 🖼️ Preview
->
 > !<img width="1920" height="1080" alt="Screenshot 2025-07-30 005452" src="https://github.com/user-attachments/assets/0e2b59ed-024c-4fe6-a6a0-f0788522304a" />
+
 <img width="1920" height="1080" alt="Screenshot 2025-07-30 005516" src="https://github.com/user-attachments/assets/9b05a8d1-f353-40a1-aad2-e2fb7c054928" />
+
 <img width="1920" height="1080" alt="Screenshot 2025-07-30 005531" src="https://github.com/user-attachments/assets/73b73f43-0ce1-48ef-8e23-2cf58b943a58" />
+
 <img width="1920" height="1080" alt="Screenshot 2025-07-30 005539" src="https://github.com/user-attachments/assets/ed7988c9-6f32-4885-8070-8793eb6c39c4" />
+
+<img width="1920" height="1080" alt="Screenshot 2025-07-30 005508" src="https://github.com/user-attachments/assets/ee7face8-ead2-468c-b23a-8d6f996856ff" />
 
 
 ## 🤝 Contributing
