@@ -23,7 +23,7 @@ community-timetable/
 ├── style.css             # Dark theme and responsive layout
 ├── script.js             # JS for rendering schedule dynamically
 
-...
+```
 
 
 
