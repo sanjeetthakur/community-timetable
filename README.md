@@ -24,7 +24,7 @@ community-timetable/
 ├── script.js             # JS for rendering schedule dynamically
 
 ...
-```
+
 
 
 ## 🚀 How to Use
