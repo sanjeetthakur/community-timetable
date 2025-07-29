@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Essential meta tags for proper encoding and responsive design -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Timetable</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">                              <!-- Custom styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">  <!-- Font Awesome icons -->
+    
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>  <!-- PDF export functionality -->
+</head>
+<body>
+    <!-- Main Application Container -->
+    <div class="app-container">
+        <!-- Top Navigation Bar -->
+        <nav class="top-nav">
+            <!-- Navigation Back Button -->
+            <a href="#" class="back-link">← Back to Calendar</a>
+            <!-- Action Buttons (Filter & Export) -->
+            <div class="nav-actions">
+                <!-- Filter Button -->
+                <button id="filterBtn">Filter</button>
+                <!-- Export Dropdown Menu -->
+                <div class="export-dropdown">
+                    <button id="exportBtn">Export <span class="dropdown-arrow">▼</span></button>
+                    <!-- Export Options Menu -->
+                    <div class="export-menu" id="exportMenu" style="display: none;">
+                        <div class="export-option" data-action="calendar">
+                            <i class="icon">📅</i>
+                            <div class="option-content">
+                                <span class="option-title">Export to Calendar</span>
+                                <span class="option-desc">Add schedule to your calendar</span>
+                            </div>
+                        </div>
+                        <div class="export-option" data-action="pdf">
+                            <i class="icon">📄</i>
+                            <div class="option-content">
+                                <span class="option-title">Export as PDF</span>
+                                <span class="option-desc">Download as PDF document</span>
+                            </div>
+                        </div>
+                        <div class="export-option" data-action="csv">
+                            <i class="icon">📊</i>
+                            <div class="option-content">
+                                <span class="option-title">Export as CSV</span>
+                                <span class="option-desc">Download spreadsheet format</span>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="export-option" data-action="share">
+                            <i class="icon">📤</i>
+                            <div class="option-content">
+                                <span class="option-title">Share Schedule</span>
+                                <span class="option-desc">Share with your team</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <header>
+            <h1>🗓️ Community Timetable</h1>
+            <div class="date-display" id="currentDate"></div>
+            <!-- Progress Bar Component -->
+            <div class="progress-bar" data-group="yellow">
+                <!-- Progress Track - Container for the fill bar -->
+                <div class="progress-track">
+                    <div class="progress-fill"></div>
+                </div>
+                <!-- Week Indicators - Interactive week status dots -->
+                <div class="week-indicators">
+                    <!-- Week dots with different states: completed, in-progress, upcoming -->
+                    <button class="week-dot completed" data-week="1">W1</button>
+                    <button class="week-dot completed" data-week="2">W2</button>
+                    <button class="week-dot in-progress active" data-week="3">W3</button>
+                    <button class="week-dot upcoming" data-week="4">W4</button>
+                    <button class="week-dot upcoming" data-week="5">W5</button>
+                    <button class="week-dot upcoming" data-week="6">W6</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="content-left">
+                <div class="filters-panel" id="filtersPanel" style="display: none;">
+                    <div class="close-filters">×</div>
+                    <div class="filter-group">
+                        <label>Week</label>
+                        <select id="weekFilter">
+                            <option value="1">Week 1</option>
+                            <option value="2">Week 2</option>
+                            <option value="3">Week 3</option>
+                            <option value="4">Week 4</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Class Type</label>
+                        <select id="classTypeFilter">
+                            <option value="all">All Classes</option>
+                            <option value="core">Core Topics</option>
+                            <option value="optional">Optional Topics</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Status</label>
+                        <select id="statusFilter">
+                            <option value="all">All Status</option>
+                            <option value="completed">Completed</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="upcoming">Upcoming</option>
+                        </select>
+                    </div>
+                    <button id="applyFilters" class="apply-filters-btn">Apply Filters</button>
+                </div>
+
+                <!-- Groups Container - Holds all coding group cards -->
+                <div class="groups-container">
+                    <!-- Yellow Coders Group Card -->
+                    <!-- Each group card has a color class (yellow/blue/orange/red) and data-group attribute for JS interaction -->
+                    <div class="group yellow active" data-group="yellow">
+                        <!-- Group Header - Contains group name and basic stats -->
+                        <div class="group-header">
+                            <h2>Yellow Coders</h2>
+                            <span class="members">24 Members</span>
+                            <span class="progress-indicator">Week 3 of 8</span>
+                        </div>
+                        <div class="group-preview">
+                            <div class="next-session">Next: HTML & CSS Basics - 10:00 AM</div>
+                            <div class="completion-status">
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 45%"></div>
+                                </div>
+                                <span>45% Complete</span>
+                            </div>
+                        </div>
+                    </div>
+
+            <div class="group blue" data-group="blue">
+                <div class="group-header">
+                    <h2>Blue Coders</h2>
+                    <span class="members">20 Members</span>
+                </div>
+                <div class="group-preview">
+                    <div class="next-session">Next: JavaScript Basics - 2:00 PM</div>
+                </div>
+            </div>
+
+            <div class="group orange" data-group="orange">
+                <div class="group-header">
+                    <h2>Orange Coders</h2>
+                    <span class="members">18 Members</span>
+                </div>
+                <div class="group-preview">
+                    <div class="next-session">Next: React Fundamentals - 11:00 AM</div>
+                </div>
+            </div>
+
+            <div class="group red" data-group="red">
+                <div class="group-header">
+                    <h2>Red Coders</h2>
+                    <span class="members">22 Members</span>
+                </div>
+                <div class="group-preview">
+                    <div class="next-session">Next: Node.js Basics - 3:00 PM</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timetable-container" id="timetableView">
+            <div class="timetable-header">
+                <h2 class="selected-group">Yellow Coders Schedule</h2>
+                <div class="view-controls">
+                    <button class="view-btn active" data-view="week">Week</button>
+                    <button class="view-btn" data-view="day">Day</button>
+                </div>
+            </div>
+            <div class="timetable-content">
+                <!-- Timetable content will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </div>
+    <!-- Main Footer -->
+<footer class="footer">
+    <!-- Footer Content Container -->
+    <div class="footer-content">
+        <!-- Quick Links Section - Primary Navigation Links -->
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <div class="footer-links">
+                <a href="#" class="footer-link">
+                    <i class="fas fa-calendar"></i> View Schedule
+                </a>
+                <a href="#" class="footer-link">
+                    <i class="fas fa-users"></i> Study Groups
+                </a>
+                <a href="#" class="footer-link">
+                    <i class="fas fa-book"></i> Resources
+                </a>
+                <a href="#" class="footer-link">
+                    <i class="fas fa-question-circle"></i> Help Center
+                </a>
+            </div>
+        </div>
+        
+        <div class="footer-section">
+            <h3>Resources</h3>
+            <div class="footer-links">
+                <a href="#" class="footer-link">
+                    <i class="fas fa-graduation-cap"></i> Learning Path
+                </a>
+                <a href="#" class="footer-link">
+                    <i class="fas fa-video"></i> Video Tutorials
+                </a>
+                <a href="#" class="footer-link">
+                    <i class="fas fa-code"></i> Code Examples
+                </a>
+                <a href="#" class="footer-link">
+                    <i class="fas fa-download"></i> Downloads
+                </a>
+            </div>
+        </div>
+        
+        <div class="footer-section">
+            <h3>Contact Us</h3>
+            <div class="footer-contact">
+                <p><i class="fas fa-envelope"></i> support@rtacademy.com</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Learning Street, Education City</p>
+                <div class="footer-social">
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-section">
+            <h3>Newsletter</h3>
+            <div class="footer-contact">
+                <p>Stay updated with our latest news and updates.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit" class="btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>© 2025 RT Academy. All rights reserved.</p>
+        <div class="footer-bottom-links">
+            <a href="#" class="footer-bottom-link">Privacy Policy</a>
+            <a href="#" class="footer-bottom-link">Terms of Service</a>
+            <a href="#" class="footer-bottom-link">Cookie Policy</a>
+        </div>
+    </div>
+</footer>
+    <script src="script.js"></script>
+</body>
+</html>
